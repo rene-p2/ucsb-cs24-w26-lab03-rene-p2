@@ -322,6 +322,14 @@ bool IntBST::remove(int value){
 		delete hi;
 		return true;
 	}
+	if (hi->parent == nullptr && hi->left && hi->right){
+		Node *temp = getSuccessorNode(hi->info);
+		temp->left = hi->left;
+		root = hi->right;
+		hi->right->parent = nullptr;
+		delete hi;
+		return true;
+	}
 	if (hi->parent != nullptr && hi->left == nullptr && hi->right == nullptr){
 		if (hi->parent->info > value){
 			hi->parent->left = nullptr;
@@ -333,17 +341,16 @@ bool IntBST::remove(int value){
 			delete hi;
 			return true;
 		}
-		
 	}
 	if (hi->right){
 		Node *temp = getSuccessorNode(hi->info);
 		temp->left = hi->left;
-		if (hi->parent == nullptr){
-			root = temp;
-			temp->parent = nullptr;
-			delete hi;
-			return true;
-		}
+		//if (hi->parent == nullptr){
+		//	root = temp;
+		//	temp->parent = nullptr;
+		//	delete hi;
+		//	return true;
+		//}
 		if (value < hi->parent->info){
 			hi->parent->left = hi->right;
 		}
