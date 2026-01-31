@@ -301,9 +301,9 @@ int IntBST::getSuccessor(int value) const{
 bool IntBST::remove(int value){
 	Node *hi = getNodeFor(value, root);
 	if (!hi){
-	//	delete hi;
 		return false;
 	}
+
 	if (hi->parent == nullptr && hi->right == nullptr && hi->left == nullptr){
 		delete hi;
 		return true;
@@ -314,6 +314,49 @@ bool IntBST::remove(int value){
 		delete hi;
 		return true;
 	}
+	if (hi->parent == nullptr && hi->left == nullptr && hi->right){
+		hi->right->parent = nullptr;
+		root = hi->right;
+		delete hi;
+		return true;
+	}
+	if (hi->parent != nullptr && hi->left == nullptr && hi->right == nullptr){
+		if (hi->parent->info > value){
+			hi->parent->left = nullptr;
+		}
+		else{
+			hi->parent->right = nullptr;
+		}
+		delete hi;
+		return true;
+	}
+	if (hi->right){
+		Node *temp = getSuccessorNode(hi->info);
+		temp->left = hi->left;
+		if (value < hi->parent->info){
+			hi->parent->left = hi->right;
+		}
+		else{
+			hi->parent->right = hi->right;
+		}
+		hi->right->parent = hi->parent;
+		delete hi;
+		return true;
+	}
+	else{
+		if (value < hi->parent->info){
+			hi->parent->left = hi->left;
+		}
+		else{
+			hi->parent->right = hi->left;
+		}
+		hi->left->parent = hi->parent;
+		delete hi;
+		return true;
+	}
+		
+//above is good
+/*
 	if (hi->parent == nullptr){
 		Node *temp = getSuccessorNode(hi->info);
 		if (temp != nullptr){
@@ -366,55 +409,6 @@ bool IntBST::remove(int value){
 	else{
 		return false;
 	}
-
-
-
-
-
-
-
-	/*
-	Node *temp = getSuccessorNode(hi->info);
-	if (temp == nullptr || temp == hi->parent){
-		temp = getPredecessorNode(hi->info);
-		if (temp == nullptr || temp == hi->parent){
-			if (hi->info > hi->parent->info){
-				hi->parent->right = nullptr;
-				delete hi;
-				return true;
-			}
-			else{
-				hi->parent->left = nullptr;
-				delete hi;
-				return true;
-			}
-		}
-		else{
-			if (hi->info > hi->parent->info){
-				hi->parent->right = temp;
-				delete hi;
-				return true;
-			}
-			else{
-				hi->parent->left = temp;
-				delete hi;
-				return true;
-			}
-		}
-	}
-	else{
-		if (hi->info > hi->parent->info){
-			hi->parent->right = temp;
-			temp->left = hi->left;
-			delete hi;
-			return true;
-		}
-		else{
-			hi->parent->left = temp;
-			temp->left = hi->left;
-			delete hi;
-			return true;
-		}
-	}
-	*/	
+*/
+	
 }
