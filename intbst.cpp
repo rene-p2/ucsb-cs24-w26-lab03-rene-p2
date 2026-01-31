@@ -305,10 +305,12 @@ bool IntBST::remove(int value){
 	}
 
 	if (hi->parent == nullptr && hi->right == nullptr && hi->left == nullptr){
+		root = nullptr;
 		delete hi;
 		return true;
 	}
 	if (hi->parent == nullptr && hi->left && hi->right == nullptr){
+
 		hi->left->parent = nullptr;
 		root = hi->left;
 		delete hi;
