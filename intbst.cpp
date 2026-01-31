@@ -113,10 +113,10 @@ void IntBST::printInOrder() const {
 	if (root == nullptr){
 		return;
 	}
-	if (root->left == nullptr && root->right == nullptr){
-		cout << root->info << endl;
-		return;
-	}
+//	if (root->left == nullptr && root->right == nullptr){
+//		cout << root->info << endl;
+//		return;
+//	}
 	printInOrder(root);
 //	cout << endl;
 }
@@ -134,10 +134,10 @@ void IntBST::printPostOrder() const {
     if (root == nullptr){
 	    return;
 	}
-    if (root->left == nullptr && root->right == nullptr){
-	    cout << root->info << endl;
-	    return;
-	}
+    //if (root->left == nullptr && root->right == nullptr){
+//	    cout << root->info << endl;
+//	    return;
+//	}
     printPostOrder(root);
 //    cout << endl;
 }
