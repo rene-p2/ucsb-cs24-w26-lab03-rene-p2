@@ -325,12 +325,15 @@ bool IntBST::remove(int value){
 	if (hi->parent != nullptr && hi->left == nullptr && hi->right == nullptr){
 		if (hi->parent->info > value){
 			hi->parent->left = nullptr;
+			delete hi;
+			return true;
 		}
-		else{
+		else if (hi->parent->info < value){
 			hi->parent->right = nullptr;
+			delete hi;
+			return true;
 		}
-		delete hi;
-		return true;
+		
 	}
 	if (hi->right){
 		Node *temp = getSuccessorNode(hi->info);
